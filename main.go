@@ -4,15 +4,24 @@ import (
 	"net/http"
 	"io/ioutil"
 	"log"
+	"flag"
+	"fmt"
 )
 
 var gPrivateKey []byte
 
-func main() {
-	var err error
+func getPort() int {
+	port := flag.Int("port", 8011, "Listen port")
+	flag.Parse()
+	return *port
+}
 
+func main() {
+	port := getPort()
+
+	var err error
 	gPrivateKey, err = ioutil.ReadFile("key.pem")
-	if err != nil{
+	if err != nil {
 		log.Println(err)
 		return
 	}
@@ -20,8 +29,8 @@ func main() {
 	tm := new(ticketMux)
 	tm.RegisterRouter()
 
-	log.Println("Jetbrain licence server start and listen port 8011")
-	err = http.ListenAndServe(":8011", nil)
+	log.Printf("Jetbrain licence server start and listen port %d\n", port)
+	err = http.ListenAndServe(fmt.Sprintf(":%d", port), nil)
 	if err != nil {
 		panic(err)
 	}
