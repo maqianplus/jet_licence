@@ -1,1 +1,1 @@
-# jetbrains_licence_server
+# jet_licence_serverGolang实现的JetBrains激活服务器参考代码来源于网络，做了少量更改。测试WebStorm, Goland, PyCharm, DataGrip 2017.3+ 版本有效。
